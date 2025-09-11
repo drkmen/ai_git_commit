@@ -42,8 +42,10 @@ module AiGitCommit
             },
             {
               role: "user",
-              content: "Generate a git commit message and description for the following changes" \
-                "(please do not include control chars):\n\n\(#{diff})"
+              content: <<~CONTENT
+                Generate a git commit message and description for the following changes
+                (please do not include control chars):\n\n\(#{diff})
+              CONTENT
             }
           ],
           max_tokens: config.max_tokens,
