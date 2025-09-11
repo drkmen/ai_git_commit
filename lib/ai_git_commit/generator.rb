@@ -19,14 +19,17 @@ module AiGitCommit
       private
 
       def fetch_message(diff)
-        response = openai.chat.completions.create(
-          model: "gpt-3.5-turbo",
+        response = openai.chat.completions.create(completion_payload(diff))
+        response.choices.first.message.content
+      end
+
+      def completion_payload(diff)
+        {
+          model: config.model,
           messages: [
             {
               role: "system",
-              content: "You are a senior Ruby developer. Your task is to write a concise, clear commit" \
-                "message and a detailed description based on the provided code changes. The message" \
-                "should be in the imperative mood. The body should be wrapped at 72 characters."
+              content: config.system_role_message
             },
             {
               role: "user",
@@ -36,8 +39,7 @@ module AiGitCommit
           ],
           max_tokens: 300,
           temperature: 0.7
-        )
-        response.choices.first.message.content
+        }
       end
 
       def openai
@@ -46,6 +48,10 @@ module AiGitCommit
 
       def staged_diff
         `git diff --cached`
+      end
+
+      def config
+        @config ||= AiGitCommit.config
       end
 
       def openai_api_key
