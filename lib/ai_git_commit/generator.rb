@@ -3,8 +3,11 @@
 require "openai"
 
 module AiGitCommit
+  # Generator class responsible for creating AI-generated git commit messages
   class Generator
     class << self
+      # Generates a commit message using OpenAI based on staged git diff
+      # @return [String] the generated commit message or an error message
       def commit_message
         return "# AI skipped: OPENAI_API_KEY is not set." unless openai_api_key
 
@@ -13,16 +16,22 @@ module AiGitCommit
 
         fetch_message(diff)
       rescue StandardError => e
-        "# AI error: #{e.message}"
+        "# Error: #{e.message}"
       end
 
       private
 
+      # Sends the staged diff to OpenAI and returns the generated message
+      # @param diff [String] the staged git diff
+      # @return [String] the commit message from OpenAI
       def fetch_message(diff)
         response = openai.chat.completions.create(completion_payload(diff))
         response.choices.first.message.content
       end
 
+      # Builds the payload for the OpenAI API request
+      # @param diff [String] the staged git diff
+      # @return [Hash] the payload for OpenAI API
       def completion_payload(diff)
         {
           model: config.model,
@@ -42,20 +51,28 @@ module AiGitCommit
         }
       end
 
+      # Returns an instance of OpenAI::Client
+      # @return [OpenAI::Client]
       def openai
         @openai ||= OpenAI::Client.new(api_key: openai_api_key)
       end
 
-      def staged_diff
-        `git diff --cached`
-      end
-
+      # Returns the configuration for AiGitCommit
+      # @return [AiGitCommit::Config]
       def config
         @config ||= AiGitCommit.config
       end
 
+      # Returns the OpenAI API key from configuration
+      # @return [String, nil] the API key or nil if not set
       def openai_api_key
         AiGitCommit.config.openai_api_key
+      end
+
+      # Gets the staged git diff
+      # @return [String] the output of `git diff --cached`
+      def staged_diff
+        `git diff --cached`
       end
     end
   end
