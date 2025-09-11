@@ -46,8 +46,8 @@ module AiGitCommit
                 "(please do not include control chars):\n\n\(#{diff})"
             }
           ],
-          max_tokens: 300,
-          temperature: 0.7
+          max_tokens: config.max_tokens,
+          temperature: config.temperature
         }
       end
 

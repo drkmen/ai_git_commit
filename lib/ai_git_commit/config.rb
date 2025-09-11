@@ -3,13 +3,16 @@
 module AiGitCommit
   # Configuration class for AiGitCommit
   class Config
-    attr_accessor :openai_api_key, :model, :program_language, :system_role_message
+    attr_accessor :openai_api_key, :model, :program_language,
+                  :max_tokens, :temperature, :system_role_message
 
     # Initializes configuration with default values
     def initialize
       @openai_api_key = ENV["OPENAI_API_KEY"]
       @model = "gpt-3.5-turbo"
       @program_language = "Ruby"
+      @max_tokens = 300
+      @temperature = 0.7
       @system_role_message = <<~MESSAGE
         You are a senior #{@program_language} developer. Your task is to write a concise, clear commit
         message and a detailed description based on the provided code changes. The message
