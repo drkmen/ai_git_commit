@@ -6,7 +6,7 @@ module AiGitCommit
   class Generator
     class << self
       def commit_message
-        return "# AI skipped: OPENAI_API_KEY is not set." unless ENV["OPENAI_API_KEY"]
+        return "# AI skipped: OPENAI_API_KEY is not set." unless openai_api_key
 
         diff = staged_diff
         return "# No staged changes found." if diff.strip.empty?
@@ -41,11 +41,15 @@ module AiGitCommit
       end
 
       def openai
-        @openai ||= OpenAI::Client.new(api_key: ENV["OPENAI_API_KEY"])
+        @openai ||= OpenAI::Client.new(api_key: openai_api_key)
       end
 
       def staged_diff
         `git diff --cached`
+      end
+
+      def openai_api_key
+        AiGitCommit.config.openai_api_key
       end
     end
   end

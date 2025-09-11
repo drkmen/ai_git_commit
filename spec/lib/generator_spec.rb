@@ -30,7 +30,7 @@ RSpec.describe AiGitCommit::Generator do
     let(:content) { "Generated commit message" }
 
     before do
-      allow(ENV).to receive(:[]).with("OPENAI_API_KEY").and_return(openai_api_key)
+      AiGitCommit.configure { _1.openai_api_key = openai_api_key }
       allow(described_class).to receive(:staged_diff).and_return(staged_diff)
       allow(described_class).to receive(:openai).and_return(openai_client)
     end
