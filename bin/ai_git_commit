@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+require_relative "../lib/ai_git_commit"
+require_relative "../lib/ai_git_commit/cli"
+
+case ARGV[0]
+when "install"
+  AiGitCommit::CLI.install_hook
+else
+  puts "Unknown command"
+end
