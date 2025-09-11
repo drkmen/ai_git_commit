@@ -5,6 +5,7 @@ module AiGitCommit
     class << self
       def commit_message
         return "# AI skipped: OPENAI_API_KEY is not set." unless ENV["OPENAI_API_KEY"]
+
         diff = staged_diff
         return "# No staged changes found." if diff.strip.empty?
 
