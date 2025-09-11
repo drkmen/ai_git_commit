@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
 module AiGitCommit
+  # Configuration class for AiGitCommit
   class Config
     attr_accessor :openai_api_key, :model, :program_language, :system_role_message
 
+    # Initializes configuration with default values
     def initialize
       @openai_api_key = ENV["OPENAI_API_KEY"]
       @model = "gpt-3.5-turbo"
@@ -16,13 +18,18 @@ module AiGitCommit
     end
   end
 
+  # Module-level accessor for configuration
   class << self
     attr_accessor :config
 
+    # Returns current configuration or initializes it
+    # @return [Config]
     def config
       @config ||= Config.new
     end
 
+    # Yields the configuration for modification
+    # @yield [Config] config
     def configure
       yield(config)
     end
