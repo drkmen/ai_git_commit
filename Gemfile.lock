@@ -2,14 +2,15 @@ PATH
   remote: .
   specs:
     ai_git_commit (0.1.0)
-      base64
+      base64 (~> 0.1.0)
       openai (~> 0.22.0)
+      thor (~> 1.4)
 
 GEM
   remote: https://rubygems.org/
   specs:
     ast (2.4.3)
-    base64 (0.3.0)
+    base64 (0.1.2)
     connection_pool (2.5.4)
     diff-lcs (1.6.2)
     json (2.13.2)
@@ -54,6 +55,7 @@ GEM
       parser (>= 3.3.7.2)
       prism (~> 1.4)
     ruby-progressbar (1.13.0)
+    thor (1.4.0)
     unicode-display_width (3.2.0)
       unicode-emoji (~> 4.1)
     unicode-emoji (4.1.0)

@@ -31,11 +31,13 @@ Gem::Specification.new do |spec|
   end
   spec.bindir = "exe"
   spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
+  spec.executables << 'ai_git_commit'
   spec.require_paths = ["lib"]
 
   # Uncomment to register a new dependency of your gem
   spec.add_dependency "openai", "~> 0.22.0"
-  spec.add_dependency "base64"
+  spec.add_dependency "base64", "~> 0.1.0"
+  spec.add_dependency "thor", "~> 1.4"
 
   # For more information and examples about making a new gem, check out our
   # guide at: https://bundler.io/guides/creating_gem.html
