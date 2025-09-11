@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require "thor"
 require "fileutils"
 
 module AiGitCommit
   class CLI < Thor
-    HOOK_PATH = ".git/hooks/prepare-commit-msg".freeze
+    HOOK_PATH = ".git/hooks/prepare-commit-msg"
     SCRIPT = <<~SCRIPT
       #{"#!/bin/bash" unless File.exist?(HOOK_PATH)}
       ruby -r './lib/ai_git_commit.rb' -e 'puts AiGitCommit::Generator.commit_message' >> .git/COMMIT_EDITMSG

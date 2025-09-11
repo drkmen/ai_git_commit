@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'tmpdir'
+require "tmpdir"
 
 RSpec.describe AiGitCommit do
   let(:openai_client) do
@@ -35,7 +35,7 @@ RSpec.describe AiGitCommit do
   xit "generates commit message via AI hook" do
     allow(OpenAI::Client).to receive(:new).and_return(openai_client)
     Dir.mktmpdir do |dir|
-      FileUtils.cp_r(Dir.pwd + "/.", dir)
+      FileUtils.cp_r("#{Dir.pwd}/.", dir)
       Dir.chdir(dir) do
         system("git init")
         system("export OPENAI_API_KEY='test_key'")

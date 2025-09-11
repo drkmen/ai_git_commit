@@ -31,7 +31,7 @@ Gem::Specification.new do |spec|
   end
   spec.bindir = "exe"
   spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
-  spec.executables << 'ai_git_commit'
+  spec.executables << "ai_git_commit"
   spec.require_paths = ["lib"]
 
   # Uncomment to register a new dependency of your gem

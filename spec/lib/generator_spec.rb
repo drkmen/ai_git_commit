@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe AiGitCommit::Generator do
   describe "commit_message" do
     let(:openai_api_key) { "openai_api_key" }
