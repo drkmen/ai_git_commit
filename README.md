@@ -1,12 +1,13 @@
 # AiGitCommit
 
-TODO: Delete this and the text below, and describe your gem
+AiGitCommit is a Ruby gem designed to help automate and enhance your git commit workflow using AI.
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/ai_git_commit`. To experiment with that code, run `bin/console` for an interactive prompt.
+
+
 
 ## Installation
 
-TODO: Replace `UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG` with your gem name right after releasing it to RubyGems.org. Please do not do it earlier due to security reasons. Alternatively, replace this section with instructions to install your gem from git if you don't plan to release to RubyGems.org.
+
 
 Install the gem and add to the application's Gemfile by executing:
 
