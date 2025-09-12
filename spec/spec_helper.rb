@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "ai_git_commit"
+require "ai_git_commit/cli"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure

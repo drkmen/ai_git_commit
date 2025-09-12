@@ -8,24 +8,38 @@ module AiGitCommit
   # It uses Thor for command parsing and execution.
   class CLI < Thor
     HOOK_PATH = ".git/hooks/prepare-commit-msg"
-    SCRIPT = <<~SCRIPT
-      #{"#!/bin/bash" unless File.exist?(HOOK_PATH)}
-      ruby -r './lib/ai_git_commit.rb' -e 'puts AiGitCommit::Generator.commit_message' >> .git/COMMIT_EDITMSG
-    SCRIPT
 
     # Installs the prepare-commit-msg hook.
     # If the hook already exists, appends the script; otherwise, creates a new hook file.
     # Makes the hook executable and prints a confirmation message.
     desc "install", "Set up prepare-commit-msg hook"
     def install
-      if File.exist?(HOOK_PATH)
-        File.open(HOOK_PATH, "a") { |f| f.puts SCRIPT }
+      if hook_file_exists?
+        File.open(HOOK_PATH, "a") { _1.puts script }
       else
-        File.write(HOOK_PATH, SCRIPT)
+        File.write(HOOK_PATH, script)
       end
 
       FileUtils.chmod("+x", HOOK_PATH)
       puts "AI Git Commit prepare-commit-msg hook set up."
+    end
+
+    private
+    # The script content for the prepare-commit-msg hook.
+    # Adds a shebang line if the hook file does not exist.
+    # The script runs a Ruby command to generate a commit message using AiGitCommit::Generator.
+    # @return [String] the script content
+    def script
+      <<~SCRIPT
+        #{"#!/bin/bash" unless hook_file_exists?}
+        ruby -r './lib/ai_git_commit.rb' -e 'puts AiGitCommit::Generator.commit_message' >> .git/COMMIT_EDITMSG
+      SCRIPT
+    end
+
+    # Checks if the prepare-commit-msg hook file exists.
+    # @return [Boolean] true if the hook file exists, false otherwise.
+    def hook_file_exists?
+      File.exist?(HOOK_PATH)
     end
   end
 end
