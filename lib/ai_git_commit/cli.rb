@@ -19,8 +19,14 @@ module AiGitCommit
       else
         File.write(HOOK_PATH, script)
       end
-
       FileUtils.chmod("+x", HOOK_PATH)
+
+      source = File.expand_path("../templates/ai_git_commit.rb", __dir__)
+      destination_dir = File.expand_path("config/initializers", Dir.pwd)
+      destination = File.join(destination_dir, "ai_git_commit.rb")
+      FileUtils.mkdir_p(destination_dir)
+      FileUtils.cp(source, destination)
+
       puts "AI Git Commit prepare-commit-msg hook set up."
     end
 

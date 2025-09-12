@@ -43,8 +43,9 @@ module AiGitCommit
             {
               role: "user",
               content: <<~CONTENT
-                Generate a git commit message and description for the following changes
-                (please do not include control chars):\n\n\(#{diff})
+                Generate a git commit message and description for the following changes.
+                Do not include control chars. Keep description under 200-300 chars.\n
+                Changes:\n(#{diff})
               CONTENT
             }
           ],

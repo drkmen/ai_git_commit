@@ -27,6 +27,10 @@ RSpec.describe AiGitCommit::CLI do
 
     after { subject }
 
+    it 'creates a dir and copies initializer file' do
+      expect(File.exist?("config/initializers/ai_git_commit.rb")).to be(true)
+    end
+
     context 'when hook file exists' do
       before do
         allow(cli).to receive(:hook_file_exists?).and_return(true)
