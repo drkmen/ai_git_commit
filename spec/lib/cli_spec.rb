@@ -1,29 +1,6 @@
 # frozen_string_literal: true
 
 RSpec.describe AiGitCommit::CLI do
-  # class CLI < Thor
-  #   HOOK_PATH = ".git/hooks/prepare-commit-msg"
-  #   SCRIPT = <<~SCRIPT
-  #     #{"#!/bin/bash" unless File.exist?(HOOK_PATH)}
-  #     ruby -r './lib/ai_git_commit.rb' -e 'puts AiGitCommit::Generator.commit_message' >> .git/COMMIT_EDITMSG
-  #   SCRIPT
-  #
-  #   # Installs the prepare-commit-msg hook.
-  #   # If the hook already exists, appends the script; otherwise, creates a new hook file.
-  #   # Makes the hook executable and prints a confirmation message.
-  #   desc "install", "Set up prepare-commit-msg hook"
-  #   def install
-  #     if File.exist?(HOOK_PATH)
-  #       File.open(HOOK_PATH, "a") { _1.puts SCRIPT }
-  #     else
-  #       File.write(HOOK_PATH, SCRIPT)
-  #     end
-  #
-  #     FileUtils.chmod("+x", HOOK_PATH)
-  #     puts "AI Git Commit prepare-commit-msg hook set up."
-  #   end
-  # end
-
   it 'inherits from Thor' do
     expect(described_class.superclass).to eq(Thor)
   end
@@ -35,8 +12,6 @@ RSpec.describe AiGitCommit::CLI do
       it { is_expected.to eq('.git/hooks/prepare-commit-msg') }
     end
   end
-
-  # spec/lib/cli_spec.rb
 
   describe '#install' do
     let(:cli) { described_class.new }
