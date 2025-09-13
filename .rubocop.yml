@@ -1,8 +1,18 @@
 AllCops:
   TargetRubyVersion: 3.1
+  Exclude:
+    - 'exe/**/*'
+
+Style/Documentation:
+  Enabled: false
 
 Style/StringLiterals:
   EnforcedStyle: double_quotes
 
 Style/StringLiteralsInInterpolation:
   EnforcedStyle: double_quotes
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'
+    - 'ai_git_commit.gemspec'

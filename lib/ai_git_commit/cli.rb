@@ -14,23 +14,40 @@ module AiGitCommit
     # Makes the hook executable and prints a confirmation message.
     desc "install", "Set up prepare-commit-msg hook"
     def install
+      create_hook
+      copy_initializer
+      puts "AI Git Commit prepare-commit-msg hook set up."
+    end
+
+    private
+
+    # Creates or updates a Git hook file with a given script.
+    # If the hook file already exists, it appends the script to it.
+    # Otherwise, it creates a new file with the script content.
+    # Finally, it sets the file's permissions to be executable.
+    # @return [void]
+    def create_hook
       if hook_file_exists?
         File.open(HOOK_PATH, "a") { _1.puts script }
       else
         File.write(HOOK_PATH, script)
       end
       FileUtils.chmod("+x", HOOK_PATH)
+    end
 
+    # Copies the ai_git_commit initializer template into the application's config directory.
+    # This ensures that:
+    # * The destination directory (config/initializers) exists
+    # * The initializer file (ai_git_commit.rb) is copied from the templates directory
+    # @return [void]
+    def copy_initializer
       source = File.expand_path("../templates/ai_git_commit.rb", __dir__)
       destination_dir = File.expand_path("config/initializers", Dir.pwd)
       destination = File.join(destination_dir, "ai_git_commit.rb")
       FileUtils.mkdir_p(destination_dir)
       FileUtils.cp(source, destination)
-
-      puts "AI Git Commit prepare-commit-msg hook set up."
     end
 
-    private
     # The script content for the prepare-commit-msg hook.
     # Adds a shebang line if the hook file does not exist.
     # The script runs a Ruby command to generate a commit message using AiGitCommit::Generator.

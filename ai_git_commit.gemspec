@@ -9,7 +9,10 @@ Gem::Specification.new do |spec|
   spec.email = ["pair.dro@gmail.com"]
 
   spec.summary = "AI Git Commit generates Git commit messages using OpenAI."
-  spec.description = "A gem that leverages OpenAI's API to automatically generate Git commit messages based on staged changes."
+  spec.description = <<~DESCRIPTION
+    A gem that leverages OpenAI's API to automatically generate
+    Git commit messages based on staged changes.
+  DESCRIPTION
   spec.homepage = "https://github.com/drkmen/ai_git_commit"
   spec.license = "MIT"
   spec.required_ruby_version = ">= 3.1.0"
@@ -35,8 +38,8 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   # Uncomment to register a new dependency of your gem
-  spec.add_dependency "openai", "~> 0.22.0"
   spec.add_dependency "base64", "~> 0.1.0"
+  spec.add_dependency "openai", "~> 0.22.0"
   spec.add_dependency "thor", "~> 1.4"
 
   # For more information and examples about making a new gem, check out our

@@ -36,22 +36,23 @@ module AiGitCommit
         {
           model: config.model,
           messages: [
-            {
-              role: "system",
-              content: config.system_role_message
-            },
-            {
-              role: "user",
-              content: <<~CONTENT
-                Generate a git commit message and description for the following changes.
-                Do not include control chars. Keep description under 200-300 chars.\n
-                Changes:\n(#{diff})
-              CONTENT
-            }
+            { role: "system", content: config.system_role_message },
+            { role: "user", content: user_role_message(diff) }
           ],
           max_tokens: config.max_tokens,
           temperature: config.temperature
         }
+      end
+
+      # Formatted message instructing the AI to create a Git commit message and description.
+      # @param diff [String] The diff content representing changes in the repository.
+      # @return [String] A formatted message ready to be sent to the AI.
+      def user_role_message(diff)
+        <<~CONTENT
+          Generate a git commit message and description for the following changes.
+          Do not include control chars. Keep description under 200-300 chars.\n
+          Changes:\n(#{diff})
+        CONTENT
       end
 
       # Returns an instance of OpenAI::Client

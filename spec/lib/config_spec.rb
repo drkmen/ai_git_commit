@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe AiGitCommit::Config do
-  describe 'initialize' do
+  describe "initialize" do
     let(:default_values) do
       {
         openai_api_key: ENV["OPENAI_API_KEY"],
@@ -23,20 +23,20 @@ RSpec.describe AiGitCommit::Config do
 
     subject { described_class.new }
 
-    it 'defines default configuration values' do
+    it "defines default configuration values" do
       is_expected.to have_attributes(default_values)
     end
   end
 
-  describe '.config' do
+  describe ".config" do
     subject { AiGitCommit.config }
 
-    it 'returns a Config instance' do
+    it "returns a Config instance" do
       is_expected.to be_a(AiGitCommit::Config)
     end
   end
 
-  describe '.configure' do
+  describe ".configure" do
     let(:new_model) { "gpt-4" }
 
     subject do
@@ -45,7 +45,7 @@ RSpec.describe AiGitCommit::Config do
       end
     end
 
-    it 'yields config block' do
+    it "yields config block" do
       expect { subject }.to change { AiGitCommit.config.model }.to(new_model)
     end
   end

@@ -1,21 +1,21 @@
 # frozen_string_literal: true
 
 RSpec.describe AiGitCommit::CLI do
-  it 'inherits from Thor' do
+  it "inherits from Thor" do
     expect(described_class.superclass).to eq(Thor)
   end
 
-  context 'constants' do
-    describe 'HOOK_PATH' do
+  context "constants" do
+    describe "HOOK_PATH" do
       subject { described_class::HOOK_PATH }
 
-      it { is_expected.to eq('.git/hooks/prepare-commit-msg') }
+      it { is_expected.to eq(".git/hooks/prepare-commit-msg") }
     end
   end
 
-  describe '#install' do
+  describe "#install" do
     let(:cli) { described_class.new }
-    let(:script_content) { 'script content' }
+    let(:script_content) { "script content" }
 
     before do
       allow(cli).to receive(:script).and_return(script_content)
@@ -27,57 +27,57 @@ RSpec.describe AiGitCommit::CLI do
 
     after { subject }
 
-    it 'creates a dir and copies initializer file' do
+    it "creates a dir and copies initializer file" do
       expect(File.exist?("config/initializers/ai_git_commit.rb")).to be(true)
     end
 
-    context 'when hook file exists' do
+    context "when hook file exists" do
       before do
         allow(cli).to receive(:hook_file_exists?).and_return(true)
         allow(File).to receive(:open)
       end
 
-      it 'appends script to the hook file' do
+      it "appends script to the hook file" do
         expect(File).to receive(:open).with(described_class::HOOK_PATH, "a")
       end
 
-      it 'makes the hook file executable' do
+      it "makes the hook file executable" do
         expect(FileUtils).to receive(:chmod).with("+x", described_class::HOOK_PATH)
       end
 
-      it 'prints confirmation message' do
+      it "prints confirmation message" do
         expect($stdout).to receive(:puts).with("AI Git Commit prepare-commit-msg hook set up.")
       end
     end
 
-    context 'when hook file does not exist' do
+    context "when hook file does not exist" do
       before do
         allow(cli).to receive(:hook_file_exists?).and_return(false)
         allow(File).to receive(:write)
       end
 
-      it 'writes script to the hook file' do
+      it "writes script to the hook file" do
         expect(File).to receive(:write).with(described_class::HOOK_PATH, script_content)
       end
 
-      it 'makes the hook file executable' do
+      it "makes the hook file executable" do
         expect(FileUtils).to receive(:chmod).with("+x", described_class::HOOK_PATH)
       end
 
-      it 'prints confirmation message' do
+      it "prints confirmation message" do
         expect($stdout).to receive(:puts).with("AI Git Commit prepare-commit-msg hook set up.")
       end
     end
   end
 
-  describe '#script' do
+  describe "#script" do
     before do
-      allow(File).to receive(:exist?).with('.git/hooks/prepare-commit-msg').and_return(hook_file_exists)
+      allow(File).to receive(:exist?).with(".git/hooks/prepare-commit-msg").and_return(hook_file_exists)
     end
 
     subject { described_class.new.send(:script) }
 
-    context 'when the hook file exists' do
+    context "when the hook file exists" do
       let(:hook_file_exists) { true }
       let(:script) do
         <<~SCRIPT
@@ -88,7 +88,7 @@ RSpec.describe AiGitCommit::CLI do
       it { is_expected.to eq(script) }
     end
 
-    context 'when the hook file does not exist' do
+    context "when the hook file does not exist" do
       let(:hook_file_exists) { false }
       let(:script) do
         <<~SCRIPT

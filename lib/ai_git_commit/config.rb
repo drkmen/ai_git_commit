@@ -23,8 +23,6 @@ module AiGitCommit
 
   # Module-level accessor for configuration
   class << self
-    attr_accessor :config
-
     # Returns current configuration or initializes it
     # @return [Config]
     def config
