@@ -92,7 +92,7 @@ RSpec.describe AiGitCommit::CLI do
       let(:hook_file_exists) { true }
       let(:script) do
         <<~SCRIPT
-          \nruby -r './lib/ai_git_commit.rb' -e 'puts AiGitCommit::Generator.commit_message' >> .git/COMMIT_EDITMSG
+          \nruby -r 'ai_git_commit' -e 'puts AiGitCommit::Generator.commit_message' >> .git/COMMIT_EDITMSG
         SCRIPT
       end
 
@@ -104,7 +104,7 @@ RSpec.describe AiGitCommit::CLI do
       let(:script) do
         <<~SCRIPT
           #!/bin/bash
-          ruby -r './lib/ai_git_commit.rb' -e 'puts AiGitCommit::Generator.commit_message' >> .git/COMMIT_EDITMSG
+          ruby -r 'ai_git_commit' -e 'puts AiGitCommit::Generator.commit_message' >> .git/COMMIT_EDITMSG
         SCRIPT
       end
 

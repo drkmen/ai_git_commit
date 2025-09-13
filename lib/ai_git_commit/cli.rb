@@ -55,7 +55,7 @@ module AiGitCommit
     def script
       <<~SCRIPT
         #{"#!/bin/bash" unless hook_file_exists?}
-        ruby -r './lib/ai_git_commit.rb' -e 'puts AiGitCommit::Generator.commit_message' >> .git/COMMIT_EDITMSG
+        ruby -r 'ai_git_commit' -e 'puts AiGitCommit::Generator.commit_message' >> .git/COMMIT_EDITMSG
       SCRIPT
     end
 
