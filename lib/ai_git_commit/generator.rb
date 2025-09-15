@@ -9,6 +9,7 @@ module AiGitCommit
       # Generates a commit message using OpenAI based on staged git diff
       # @return [String] the generated commit message or an error message
       def commit_message
+        return "" if ENV["SKIP_AI"]
         return "# AI skipped: OPENAI_API_KEY is not set." unless openai_api_key
 
         diff = staged_diff

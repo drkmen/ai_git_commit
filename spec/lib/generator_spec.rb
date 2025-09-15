@@ -2,6 +2,7 @@
 
 RSpec.describe AiGitCommit::Generator do
   describe "commit_message" do
+    let(:skip_ai) { nil }
     let(:openai_api_key) { "openai_api_key" }
     let(:staged_diff) { "staged diff content" }
     let(:openai_client) do
@@ -30,6 +31,7 @@ RSpec.describe AiGitCommit::Generator do
     let(:content) { "Generated commit message" }
 
     before do
+      allow(ENV).to receive(:[]).with("SKIP_AI").and_return(skip_ai)
       AiGitCommit.configure { _1.openai_api_key = openai_api_key }
       allow(described_class).to receive(:staged_diff).and_return(staged_diff)
       allow(described_class).to receive(:openai).and_return(openai_client)
@@ -39,6 +41,12 @@ RSpec.describe AiGitCommit::Generator do
 
     it "returns a commit message from OpenAI" do
       is_expected.to eq(content)
+    end
+
+    context "when SKIP_AI env variables is set" do
+      let(:skip_ai) { true }
+
+      it { is_expected.to eq("") }
     end
 
     context "when there are no staged changes" do
