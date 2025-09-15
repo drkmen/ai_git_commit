@@ -1,0 +1,14 @@
+module AiGitCommit
+  class CLI < Thor
+    HOOK_PATH: String
+
+    def install: () -> void
+
+    private
+
+    def create_hook: () -> void
+    def copy_initializer: () -> void
+    def script: () -> ::String
+    def hook_file_exists?: () -> bool
+  end
+end

@@ -1,0 +1,15 @@
+module AiGitCommit
+  class Config
+    attr_accessor openai_api_key: String
+    attr_accessor model: String
+    attr_accessor program_language: String
+    attr_accessor max_tokens: Integer
+    attr_accessor temperature: Float
+    attr_accessor system_role_message: String
+
+    def initialize: () -> void
+  end
+
+  def self.config: () -> Config
+  def self.configure: () { (Config) -> void } -> void
+end

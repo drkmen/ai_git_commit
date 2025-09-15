@@ -1,0 +1,33 @@
+module AiGitCommit
+  class Generator
+    self.@openai: OpenAI::Client
+    self.@config: Config
+
+    def self.commit_message: () -> String
+
+    private
+
+    def self.fetch_message: (String diff) -> String
+    def self.completion_payload: (String diff) -> {
+      model: String,
+      messages: ::Array[
+        {
+          role: String,
+          content: String
+        } | {
+          role: String,
+          content: String
+        }
+      ],
+      max_tokens: Integer,
+      temperature: Float
+    }
+
+    def self.user_role_message: (String diff) -> String
+    def self.openai: () -> OpenAI::Client
+    def self.config: () -> Config
+    def self.openai_api_key: () -> String?
+    def self.staged_diff: () -> String
+  end
+end
+
