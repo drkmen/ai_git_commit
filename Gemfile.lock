@@ -16,17 +16,20 @@ GEM
     json (2.13.2)
     language_server-protocol (3.17.0.5)
     lint_roller (1.1.0)
+    logger (1.7.0)
     openai (0.22.1)
       connection_pool
     parallel (1.27.0)
     parser (3.3.9.0)
       ast (~> 2.4.1)
       racc
-    prism (1.4.0)
+    prism (1.5.1)
     racc (1.8.1)
     rainbow (3.1.1)
     rake (13.3.0)
-    regexp_parser (2.11.2)
+    rbs (3.9.5)
+      logger
+    regexp_parser (2.11.3)
     rspec (3.13.1)
       rspec-core (~> 3.13.0)
       rspec-expectations (~> 3.13.0)
@@ -67,8 +70,9 @@ PLATFORMS
 DEPENDENCIES
   ai_git_commit!
   rake (~> 13.0)
+  rbs (~> 3.4)
   rspec (~> 3.0)
   rubocop (~> 1.21)
 
 BUNDLED WITH
-   2.6.9
+   2.7.2
