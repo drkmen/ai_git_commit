@@ -8,7 +8,7 @@ module AiGitCommit
 
     # Initializes configuration with default values
     def initialize
-      @openai_api_key = ENV["OPENAI_API_KEY"]
+      @openai_api_key = ENV.fetch("OPENAI_API_KEY", nil)
       @model = "gpt-3.5-turbo"
       @program_language = "Ruby"
       @max_tokens = 300

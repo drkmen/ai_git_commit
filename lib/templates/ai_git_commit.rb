@@ -2,7 +2,7 @@
 
 AiGitCommit.configure do |config|
   # OpenAI API key
-  config.api_key = ENV["OPENAI_API_KEY"]
+  config.api_key = ENV.fetch("OPENAI_API_KEY", nil)
 
   # Specifies the OpenAI model to use for generating commit messages.
   config.model = "gpt-3.5-turbo"
